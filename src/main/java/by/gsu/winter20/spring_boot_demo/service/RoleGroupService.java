@@ -5,6 +5,8 @@ import by.gsu.winter20.spring_boot_demo.entity.RoleGroup;
 import by.gsu.winter20.spring_boot_demo.repository.RoleGroupRepository;
 import by.gsu.winter20.spring_boot_demo.repository.RoleRepository;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,10 +17,13 @@ import java.util.List;
 @Transactional
 public class RoleGroupService {
 
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
     private final RoleGroupRepository roleGroupRepository;
     private final RoleRepository roleRepository;
 
     public void saveWithAllRolesInDb(RoleGroup roleGroup) {
+        logger.info("saving new role group");
         List<Role> roleList = roleRepository.findAll();
         roleGroup.setRoles(roleList);
 
